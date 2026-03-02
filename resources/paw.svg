@@ -1,0 +1,37 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="pawDepth" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" style="stop-color:#634832" />
+            <stop offset="80%" style="stop-color:#3D2B1F" />
+            <stop offset="100%" style="stop-color:#2A1D15" />
+        </radialGradient>
+
+        <filter id="inkBleed" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0.4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+    </defs>
+
+    <g filter="url(#inkBleed)">
+        <path
+            d="M50,52 C42,51 32,54 28,66 C26,78 35,88 50,88 C65,88 74,78 72,66 C68,54 58,51 50,52 Z 
+             M50,58 C55,58 60,60 62,64 C64,68 62,72 50,72 C38,72 36,68 38,64 C40,60 45,58 50,58 Z"
+            fill="url(#pawDepth)" fill-rule="evenodd" opacity="0.95" />
+
+        <path
+            d="M23,40 C17,40 13,46 14,54 C15,62 21,66 27,64 C33,62 31,50 28,45 C26,42 25,40 23,40 Z"
+            fill="url(#pawDepth)" />
+
+        <path
+            d="M40,24 C33,24 29,31 30,41 C31,51 37,56 43,54 C49,52 49,40 47,33 C45,28 43,24 40,24 Z"
+            fill="url(#pawDepth)" />
+
+        <path
+            d="M60,24 C67,24 71,31 70,41 C69,51 63,56 57,54 C51,52 51,40 53,33 C55,28 57,24 60,24 Z"
+            fill="url(#pawDepth)" />
+
+        <path
+            d="M77,40 C83,40 87,46 86,54 C85,62 79,66 73,64 C67,62 69,50 72,45 C74,42 75,40 77,40 Z"
+            fill="url(#pawDepth)" />
+    </g>
+</svg>

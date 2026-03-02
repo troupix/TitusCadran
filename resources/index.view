@@ -1,0 +1,35 @@
+<svg class="background">
+  <defs>
+    <!-- Radial gradient for vignette effect -->
+    <gradientStop offset="0%" stop-color="#fcf9f2" />
+    <gradientStop offset="100%" stop-color="#ede6d6" />
+  </defs>
+
+  <!-- Black border frame -->
+  <rect id="outerFrame" x="0" y="0" width="100%" height="100%" />
+
+  <!-- Cream textured background with vignette -->
+  <rect id="innerBackground" x="5%" y="5%" width="90%" height="90%" />
+
+  <!-- Noise texture overlay (optional, if supported) -->
+  <rect id="noiseOverlay" x="5%" y="5%" width="90%" height="90%" opacity="0.05" />
+
+  <!-- Time display -->
+  <text id="timeDisplay" />
+  <text id="ampm" />
+
+  <!-- Titus image in the center -->
+  <image id="titusImage" href="titus.png" />
+
+  <!-- Step counter section (bottom left) -->
+  <image id="pawIcon" href="paw.png" />
+  <text id="stepCount" />
+  <!-- Original label -->
+  <text id="myLabel" />
+
+  <!-- Heart rate section (bottom right) -->
+  <image id="heartIcon" href="heart.png" />
+  <text id="heartRate" />
+
+  <text id="dateDisplay" />
+</svg>

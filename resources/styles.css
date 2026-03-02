@@ -1,0 +1,111 @@
+.background {
+  viewport-fill: #000000;
+}
+
+#outerFrame {
+  fill: #000000;
+}
+
+#innerBackground {
+  fill: #eee1ad;
+  x: 10;
+  y: 10;
+  width: 100%-20;
+  height: 100%-20;
+}
+
+#noiseOverlay {
+  fill: #000000;
+  opacity: 0.05;
+  x: 10;
+  y: 10;
+  width: 100%-20;
+  height: 100%-20;
+}
+
+#titusImage {
+  x: 50%-110;
+  y: 50%-85;
+  width: 220;
+  height: 200;
+}
+
+#myLabel {
+  font-size: 80;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 50%+40;
+  fill: white;
+}
+
+#timeDisplay {
+  font-size: 64;
+  font-family: System-Bold;
+  text-length: 64;
+  text-anchor: middle;
+  x: 50%;
+  y: 20%;
+  fill: #fcf9ed;
+  font-weight: bold;
+  stroke: #5d544a;
+  stroke-width: 3;
+}
+
+#dateDisplay {
+  font-size: 32;
+  font-family: System-Bold;
+  text-length: 64;
+  text-anchor: middle;
+  x: 50%;
+  y: 100%-32;
+  fill: #fcf9ed;
+  font-weight: bold;
+  stroke: #5d544a;
+  stroke-width: 3;
+}
+
+#ampm {
+  font-size: 22;
+  font-family: System-Regular;
+  text-length: 16;
+  text-anchor: start;
+  x: 55%;
+  y: 20%;
+  fill: #fcf9ed;
+}
+
+#pawIcon {
+  x: 35;
+  y: 85%-60;
+  width: 32;
+  height: 32;
+}
+
+#stepCount {
+  font-size: 28;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 51;
+  y: 85%;
+  fill: #5d544a;
+}
+
+#heartIcon {
+  x: 100%-67;
+  y: 85%-60;
+  width: 32;
+  height: 32;
+}
+
+#heartRate {
+  font-size: 28;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 100%-51;
+  y: 85%;
+  fill: #5d544a;
+}
