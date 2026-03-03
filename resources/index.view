@@ -56,4 +56,7 @@
   <image id="batteryIcon_40" href="Battery_40.png" class="Battery" />
   <image id="batteryIcon_20" href="Battery_20.png" class="Battery" />
   <image id="batteryIcon_5" href="Battery_5.png" class="Battery" />
+
+  <!-- North indicator dot -->
+  <circle id="northDot" r="6" fill="#ff0000" />
 </svg>

@@ -5,6 +5,8 @@ import { zeroPad, formatSteps, formatDistance } from "../common/utils";
 import { today } from "user-activity";
 import { HeartRateSensor } from "heart-rate";
 import { battery } from "power";
+import { OrientationSensor } from "orientation";
+import { display } from "display";
 
 // Update the clock every minute
 clock.granularity = "minutes";
@@ -23,6 +25,15 @@ const battery40Element = document.getElementById("batteryIcon_40");
 const battery60Element = document.getElementById("batteryIcon_60");
 const battery80Element = document.getElementById("batteryIcon_80");
 const battery100Element = document.getElementById("batteryIcon_100");
+const northDot = document.getElementById("northDot");
+
+// Estimate screen dimensions (common Fitbit watch sizes)
+// Versa/Versa 2/Versa Lite: 300x300, Ionic: 348x250, Sense/Versa 3: 336x336
+const screenWidth = 300; // Adjust based on your device
+const screenHeight = 300;
+const centerX = screenWidth / 2;
+const centerY = screenHeight / 2;
+const radius = Math.min(screenWidth, screenHeight) / 2 - 15; // 15px margin from edge
 
 // Initialize heart rate sensor
 // @ts-ignore
@@ -33,6 +44,62 @@ hrm.start();
 hrm.onreading = function () {
   heartRate.text = hrm.heartRate || "--";
 };
+
+// Function to convert quaternion to heading (yaw angle)
+function quaternionToHeading(q) {
+  // q = [scalar, i, j, k]
+  const w = q[0];
+  const x = q[1];
+  const y = q[2];
+  const z = q[3];
+
+  // Calculate yaw (rotation around Z axis)
+  const siny_cosp = 2 * (w * z + x * y);
+  const cosy_cosp = 1 - 2 * (y * y + z * z);
+  let yaw = Math.atan2(siny_cosp, cosy_cosp);
+
+  // Convert from radians to degrees
+  let heading = yaw * (180 / Math.PI);
+
+  // Normalize to 0-360
+  if (heading < 0) {
+    heading += 360;
+  }
+
+  return heading;
+}
+
+// Initialize orientation sensor for compass
+if (OrientationSensor) {
+  const orientation = new OrientationSensor({ frequency: 10 });
+
+  orientation.addEventListener("reading", () => {
+    // Get quaternion reading
+    const quaternion = orientation.quaternion;
+
+    // Convert quaternion to heading (0-360 degrees)
+    const heading = quaternionToHeading(quaternion);
+
+    // Convert heading to radians
+    // Subtract 90 degrees to make 0° point up (north)
+    const angleRadians = ((heading - 90) * Math.PI) / 180;
+
+    // Calculate position on circle
+    const x = centerX + radius * Math.cos(angleRadians);
+    const y = centerY + radius * Math.sin(angleRadians);
+
+    // Update dot position
+    northDot.cx = x;
+    northDot.cy = y;
+  });
+
+  // Automatically stop the sensor when the screen is off to conserve battery
+  display.addEventListener("change", () => {
+    display.on ? orientation.start() : orientation.stop();
+  });
+
+  orientation.start();
+}
 
 // Function to update battery display
 function updateBatteryVisibility() {
