@@ -1,7 +1,7 @@
 import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
-import { zeroPad, formatSteps } from "../common/utils";
+import { zeroPad, formatSteps, formatDistance } from "../common/utils";
 import { today } from "user-activity";
 import { HeartRateSensor } from "heart-rate";
 import { battery } from "power";
@@ -15,6 +15,7 @@ const ampmDisplay = document.getElementById("ampm");
 const stepCount = document.getElementById("stepCount");
 const heartRate = document.getElementById("heartRate");
 const dateElement = document.getElementById("dateDisplay");
+const distanceCount = document.getElementById("distanceCount");
 const boneBatteryElement = document.getElementById("batteryBone");
 const battery5Element = document.getElementById("batteryIcon_5");
 const battery20Element = document.getElementById("batteryIcon_20");
@@ -84,7 +85,29 @@ clock.ontick = function (evt) {
   let steps = today.adjusted.steps || 0;
   stepCount.text = formatSteps(steps);
 
-  let formattedDate = `${["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"][todayDate.getMonth()]} ${todayDate.getDate()}`;
+  // Update distance
+  let distance = today.adjusted.distance || 0;
+  distanceCount.text = formatDistance(distance);
+
+  // Format date with day name in French
+  const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  const monthNames = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+  let dayName = dayNames[todayDate.getDay()];
+  let monthName = monthNames[todayDate.getMonth()];
+  let formattedDate = `${dayName} ${todayDate.getDate()} ${monthName}`;
   dateElement.text = formattedDate;
 
   // Update battery display

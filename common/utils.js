@@ -18,6 +18,13 @@ export function formatSteps(steps) {
   return steps.toString();
 }
 
+export function formatDistance(meters) {
+  if (meters >= 1000) {
+    return (meters / 1000).toFixed(1) + "km";
+  }
+  return meters.toString() + "m";
+}
+
 export function updateBatteryDisplay(batteryLevel) {
   // batteryLevel should be between 0 and 100
 

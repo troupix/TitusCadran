@@ -45,6 +45,10 @@
 
   <text id="dateDisplay" />
 
+  <!-- Distance section (top left) -->
+  <image id="pinIcon" href="pin.png" />
+  <text id="distanceCount" />
+
   <!-- Battery indicator (bone-shaped) -->
   <image id="batteryIcon_100" href="Battery_100.png" class="Battery" />
   <image id="batteryIcon_80" href="Battery_80.png" class="Battery" />
