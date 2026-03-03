@@ -26,7 +26,6 @@ const battery60Element = document.getElementById("batteryIcon_60");
 const battery80Element = document.getElementById("batteryIcon_80");
 const battery100Element = document.getElementById("batteryIcon_100");
 const northDot = document.getElementById("northDot");
-const debugText = document.getElementById("debugText");
 
 // Estimate screen dimensions (common Fitbit watch sizes)
 // Versa/Versa 2/Versa Lite: 300x300, Ionic: 348x250, Sense/Versa 3: 336x336
@@ -92,11 +91,6 @@ if (OrientationSensor) {
     // Update dot position
     northDot.cx = x;
     northDot.cy = y;
-
-    // Debug display
-    if (debugText) {
-      debugText.text = `H:${Math.round(heading)}° X:${Math.round(x)} Y:${Math.round(y)}`;
-    }
   });
 
   // Automatically stop the sensor when the screen is off to conserve battery
@@ -105,11 +99,6 @@ if (OrientationSensor) {
   });
 
   orientation.start();
-} else {
-  // Show message if orientation sensor is not available
-  if (debugText) {
-    debugText.text = "No Orientation Sensor";
-  }
 }
 
 // Function to update battery display
