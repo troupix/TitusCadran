@@ -1,8 +1,20 @@
 <svg class="background">
   <defs>
     <!-- Radial gradient for vignette effect -->
-    <gradientStop offset="0%" stop-color="#fcf9f2" />
-    <gradientStop offset="100%" stop-color="#ede6d6" />
+    <!-- <gradientStop offset="0%" stop-color="#fcf9f2" />
+    <gradientStop offset="100%" stop-color="#ede6d6" /> -->
+
+    <!-- Battery bone clip path -->
+    <!-- <clipPath id="boneClip"> -->
+    <path
+      d="M 25 12 
+           L 75 12 
+           C 82 4, 98 6, 90 20 
+           C 98 34, 82 36, 75 28 
+           L 25 28 
+           C 18 36, 2 34, 10 20 
+           C 2 6, 18 4, 25 12 Z" />
+    <!-- </clipPath> -->
   </defs>
 
   <!-- Black border frame -->
@@ -32,4 +44,12 @@
   <text id="heartRate" />
 
   <text id="dateDisplay" />
+
+  <!-- Battery indicator (bone-shaped) -->
+  <image id="batteryIcon_100" href="Battery_100.png" class="Battery" />
+  <image id="batteryIcon_80" href="Battery_80.png" class="Battery" />
+  <image id="batteryIcon_60" href="Battery_60.png" class="Battery" />
+  <image id="batteryIcon_40" href="Battery_40.png" class="Battery" />
+  <image id="batteryIcon_20" href="Battery_20.png" class="Battery" />
+  <image id="batteryIcon_5" href="Battery_5.png" class="Battery" />
 </svg>

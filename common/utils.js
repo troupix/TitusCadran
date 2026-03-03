@@ -17,3 +17,28 @@ export function formatSteps(steps) {
   }
   return steps.toString();
 }
+
+export function updateBatteryDisplay(batteryLevel) {
+  // batteryLevel should be between 0 and 100
+
+  const bar1 = document.getElementById("bar-1"); // Red
+  const bar2 = document.getElementById("bar-2"); // Orange
+  const bar3 = document.getElementById("bar-3"); // Yellow
+  const bar4 = document.getElementById("bar-4"); // Green
+
+  // Reset all bars
+  [bar1, bar2, bar3, bar4].forEach((bar) => {
+    bar.classList.remove("active", "critical");
+  });
+
+  // Turn on bars based on percentage
+  if (batteryLevel > 0) bar1.classList.add("active");
+  if (batteryLevel > 25) bar2.classList.add("active");
+  if (batteryLevel > 50) bar3.classList.add("active");
+  if (batteryLevel > 75) bar4.classList.add("active");
+
+  // Trigger blinking animation if battery is critically low (e.g., under 10%)
+  if (batteryLevel > 0 && batteryLevel <= 10) {
+    bar1.classList.add("critical");
+  }
+}
