@@ -24,6 +24,13 @@ const battery60Element = document.getElementById("batteryIcon_60");
 const battery80Element = document.getElementById("batteryIcon_80");
 const battery100Element = document.getElementById("batteryIcon_100");
 
+// Get digit image elements
+const digit1 = document.getElementById("digit1");
+const digit2 = document.getElementById("digit2");
+const colon = document.getElementById("colon");
+const digit3 = document.getElementById("digit3");
+const digit4 = document.getElementById("digit4");
+
 // Initialize heart rate sensor
 // @ts-ignore
 let hrm = new HeartRateSensor();
@@ -33,6 +40,18 @@ hrm.start();
 hrm.onreading = function () {
   heartRate.text = hrm.heartRate || "--";
 };
+
+// Function to update digit images
+function updateDigitDisplay(hours, mins) {
+  const hoursStr = zeroPad(hours).toString();
+  const minsStr = zeroPad(mins).toString();
+
+  digit1.href = `${hoursStr[0]}.png`;
+  digit2.href = `${hoursStr[1]}.png`;
+  digit3.href = `${minsStr[0]}.png`;
+  digit4.href = `${minsStr[1]}.png`;
+  colon.href = "deux_point.png";
+}
 
 // Function to update battery display
 function updateBatteryVisibility() {
@@ -76,9 +95,12 @@ clock.ontick = function (evt) {
     hours = hours % 12 || 12;
   }
 
-  // Format time with leading zero for minutes
-  let timeString = `${hours}:${zeroPad(mins)}`;
-  timeDisplay.text = timeString;
+  // Update digit images
+  updateDigitDisplay(hours, mins);
+
+  // Hide text display, show images instead
+  timeDisplay.style.display = "none";
+
   ampmDisplay.text = preferences.clockDisplay === "12h" ? ampm : "";
 
   // Update step count

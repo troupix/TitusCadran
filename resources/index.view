@@ -26,7 +26,14 @@
   <!-- Noise texture overlay (optional, if supported) -->
   <rect id="noiseOverlay" x="5%" y="5%" width="90%" height="90%" opacity="0.05" />
 
-  <!-- Time display -->
+  <!-- Time display with images -->
+  <image id="digit1" class="timeDigit" />
+  <image id="digit2" class="timeDigit" />
+  <image id="colon" class="timeColon" />
+  <image id="digit3" class="timeDigit" />
+  <image id="digit4" class="timeDigit" />
+
+  <!-- Fallback text display (hidden when using images) -->
   <text id="timeDisplay" />
   <text id="ampm" />
 

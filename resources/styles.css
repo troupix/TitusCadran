@@ -40,6 +40,36 @@
   fill: white;
 }
 
+/* Time digit images */
+.timeDigit {
+  y: 20%-32;
+  width: 25;
+  height: 40;
+}
+
+#digit1 {
+  x: 50%-56;
+}
+
+#digit2 {
+  x: 50%-30;
+}
+
+.timeColon {
+  x: 50%;
+  y: 20%-21;
+  width: 10;
+  height: 28;
+}
+
+#digit3 {
+  x: 50%+15;
+}
+
+#digit4 {
+  x: 50%+41;
+}
+
 #timeDisplay {
   font-size: 64;
   font-family: System-Bold;
@@ -59,7 +89,7 @@
   text-anchor: middle;
   x: 50%;
   y: 100%-32;
-  fill: #fcf9ed;
+  fill: #976754;
   font-weight: bold;
   stroke-width: 3;
 }
