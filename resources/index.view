@@ -59,4 +59,7 @@
 
   <!-- North indicator dot -->
   <circle id="northDot" r="6" fill="#ff0000" />
+
+  <!-- Debug text -->
+  <text id="debugText" />
 </svg>
