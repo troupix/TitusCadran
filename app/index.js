@@ -37,8 +37,8 @@ const titusImage = document.getElementById("titusImage");
 // Titus mood images
 const titusImages = [
   "titus.png", // Default/normal
-  "titus_happy.png", // Happy
   "titus_sleep.png", // Sleepy
+  "titus_sleepy.png", // Sleepy
   "titus_excited.png", // Excited
   "titus_hunry.png",
 ];
