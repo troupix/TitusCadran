@@ -31,6 +31,23 @@ const colon = document.getElementById("colon");
 const digit3 = document.getElementById("digit3");
 const digit4 = document.getElementById("digit4");
 
+// Get Titus image element
+const titusImage = document.getElementById("titusImage");
+
+// Titus mood images
+const titusImages = [
+  "titus.png", // Default/normal
+  "titus_happy.png", // Happy
+  "titus_sleep.png", // Sleepy
+  "titus_excited.png", // Excited
+  "titus_hunry.png",
+];
+
+// Titus state management
+let manualTitusMode = false; // Track if user manually changed Titus
+let currentTitusIndex = 0;
+let manualModeTimeout = null;
+
 // Charging animation variables
 let chargingInterval = null;
 let chargingFrame = 0;
@@ -129,6 +146,64 @@ function updateBatteryVisibility() {
   }
 }
 
+// Function to update Titus mood based on time of day
+function updateTitusMood(hours) {
+  if (manualTitusMode) {
+    return; // Don't auto-update if user manually changed it
+  }
+
+  if (hours >= 22 || hours < 6) {
+    // Night time (10 PM - 6 AM): Sleepy Titus
+    titusImage.href = "titus_sleep.png";
+    currentTitusIndex = 2;
+  } else if (hours >= 6 && hours < 7) {
+    // Morning (6 AM - 12 PM): Excited/energetic Titus
+    titusImage.href = "titus_sleepy.png";
+    currentTitusIndex = 3;
+  } else if (hours >= 7 && hours < 11) {
+    // Morning (6 AM - 12 PM): Excited/energetic Titus
+    titusImage.href = "titus.png";
+    currentTitusIndex = 3;
+  } else if (hours >= 11 && hours < 13) {
+    // Afternoon (12 PM - 6 PM): Normal Titus
+    titusImage.href = "titus_hungry.png";
+    currentTitusIndex = 0;
+  } else if (hours >= 13 && hours < 17) {
+    // Afternoon (2 PM - 6 PM): Normal Titus
+    titusImage.href = "titus.png";
+    currentTitusIndex = 0;
+  } else if (hours >= 17 && hours < 20) {
+    titusImage.href = "titus_excited.png";
+  } else {
+    // Evening (6 PM - 10 PM): Happy/relaxed Titus
+    titusImage.href = "titus_sleepy.png";
+    currentTitusIndex = 3;
+  }
+}
+
+// Function to handle Titus tap - cycle through expressions
+document.onclick = () => {
+  // Enter manual mode
+  manualTitusMode = true;
+
+  // Clear any existing timeout
+  if (manualModeTimeout) {
+    clearTimeout(manualModeTimeout);
+  }
+
+  // Cycle to next Titus image
+  currentTitusIndex = (currentTitusIndex + 1) % titusImages.length;
+  titusImage.href = titusImages[currentTitusIndex];
+
+  // Return to automatic mode after 30 seconds of no interaction
+  manualModeTimeout = setTimeout(() => {
+    manualTitusMode = false;
+    // Update to current time-based mood
+    let now = new Date();
+    updateTitusMood(now.getHours());
+  }, 30000); // 30 seconds
+};
+
 // Update the clock display
 clock.ontick = function (evt) {
   let todayDate = evt.date;
@@ -180,12 +255,19 @@ clock.ontick = function (evt) {
   let formattedDate = `${dayName} ${todayDate.getDate()} ${monthName}`;
   dateElement.text = formattedDate;
 
+  // Update Titus mood based on time (only if not in manual mode)
+  updateTitusMood(todayDate.getHours());
+
   // Update battery display
   updateBatteryVisibility();
 };
 
 // Initial battery update
 updateBatteryVisibility();
+
+// Initial Titus mood update
+let now = new Date();
+updateTitusMood(now.getHours());
 
 // Listen for battery changes
 battery.onchange = function () {
