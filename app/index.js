@@ -31,6 +31,18 @@ const colon = document.getElementById("colon");
 const digit3 = document.getElementById("digit3");
 const digit4 = document.getElementById("digit4");
 
+// Charging animation variables
+let chargingInterval = null;
+let chargingFrame = 0;
+const batteryElements = [
+  battery5Element,
+  battery20Element,
+  battery40Element,
+  battery60Element,
+  battery80Element,
+  battery100Element,
+];
+
 // Initialize heart rate sensor
 // @ts-ignore
 let hrm = new HeartRateSensor();
@@ -53,31 +65,67 @@ function updateDigitDisplay(hours, mins) {
   colon.href = "deux_point.png";
 }
 
-// Function to update battery display
-function updateBatteryVisibility() {
-  const batteryLevel = battery.chargeLevel;
-
-  // Hide all battery images first
+// Function to hide all battery images
+function hideAllBatteryImages() {
   battery5Element.style.display = "none";
   battery20Element.style.display = "none";
   battery40Element.style.display = "none";
   battery60Element.style.display = "none";
   battery80Element.style.display = "none";
   battery100Element.style.display = "none";
+}
 
-  // Show appropriate battery image based on level
-  if (batteryLevel <= 5) {
-    battery5Element.style.display = "inline";
-  } else if (batteryLevel <= 20) {
-    battery20Element.style.display = "inline";
-  } else if (batteryLevel <= 40) {
-    battery40Element.style.display = "inline";
-  } else if (batteryLevel <= 60) {
-    battery60Element.style.display = "inline";
-  } else if (batteryLevel <= 80) {
-    battery80Element.style.display = "inline";
+// Function to start charging animation
+function startChargingAnimation() {
+  // Stop any existing animation
+  if (chargingInterval) {
+    clearInterval(chargingInterval);
+  }
+
+  chargingFrame = 0;
+
+  chargingInterval = setInterval(() => {
+    hideAllBatteryImages();
+    batteryElements[chargingFrame].style.display = "inline";
+    chargingFrame = (chargingFrame + 1) % batteryElements.length;
+  }, 1000); // Change every second
+}
+
+// Function to stop charging animation
+function stopChargingAnimation() {
+  if (chargingInterval) {
+    clearInterval(chargingInterval);
+    chargingInterval = null;
+  }
+}
+
+// Function to update battery display
+function updateBatteryVisibility() {
+  const batteryLevel = battery.chargeLevel;
+  const isCharging = battery.charging;
+
+  if (isCharging) {
+    // Start charging animation
+    startChargingAnimation();
   } else {
-    battery100Element.style.display = "inline";
+    // Stop charging animation and show static battery level
+    stopChargingAnimation();
+    hideAllBatteryImages();
+
+    // Show appropriate battery image based on level
+    if (batteryLevel <= 5) {
+      battery5Element.style.display = "inline";
+    } else if (batteryLevel <= 20) {
+      battery20Element.style.display = "inline";
+    } else if (batteryLevel <= 40) {
+      battery40Element.style.display = "inline";
+    } else if (batteryLevel <= 60) {
+      battery60Element.style.display = "inline";
+    } else if (batteryLevel <= 80) {
+      battery80Element.style.display = "inline";
+    } else {
+      battery100Element.style.display = "inline";
+    }
   }
 }
 
